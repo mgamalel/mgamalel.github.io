@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Malak Gamal El-Din</title>
+<meta name="description" content="Malak Gamal El-Din, Ph.D. student in EECS at UC Irvine and NSF Graduate Research Fellow, working on edge AI, hardware–software co-design, and neurosymbolic models.">
+<meta property="og:title" content="Malak Gamal El-Din">
+<meta property="og:description" content="Ph.D. student at UC Irvine (Pervasive Autonomy Lab) · NSF GRFP Fellow · Edge AI and hardware–software co-design">
+<meta property="og:image" content="headshot.jpg">
+<link rel="icon" href="headshot.jpg">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: sticky top tab bar over one scrolling page; the bar tracks the section in view; profile header first (single light theme).
+   Palette: UCI blue and gold on a cool, slightly blue-biased neutral. */
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --fg:#122033; --muted:#566476; --line:#dfe4eb;
+  --ink:#0064a4; --gold:#f2b705; --gold-soft:#fff4cf; --tint:#e9f2fa;
+  --rail-bg:#ffffff; --rail-fg:#122033; --rail-muted:#566476; --rail-line:#dfe4eb; --rail-accent:#f2b705; --rail-link:#0064a4;
+  color-scheme:light;
+  --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 1.06rem/1.65 var(--body);margin:0;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.15;letter-spacing:-.015em;text-wrap:balance;margin:0}
+.page{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,4vw,48px) 40px}
+
+/* top tab bar */
+.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.topbar-in{max-width:1160px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);display:flex;align-items:center;gap:28px;min-height:64px}
+.brand{font:800 1.12rem var(--display);letter-spacing:-.02em;color:var(--fg);text-decoration:none;white-space:nowrap}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;min-width:0}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{position:relative;white-space:nowrap;padding:21px 10px;font:600 .94rem var(--display);color:var(--muted);text-decoration:none;transition:color .15s}
+.tabs a:hover{color:var(--fg)}
+.tabs a.on{color:var(--ink)}
+.tabs a.on::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--gold)}
+
+/* profile header (About page) */
+.profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:clamp(22px,4vw,44px);align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3.5vw,36px);box-shadow:0 8px 24px -14px rgba(10,30,50,.14)}
+.profile-body{display:flex;flex-direction:column;gap:16px;min-width:0}
+.portrait{width:180px;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;border:1px solid var(--line)}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.profile h1{font-size:clamp(2rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.role{color:var(--muted);font-size:1.02rem;line-height:1.5;margin:10px 0 0}
+.role a{color:var(--ink);text-decoration:none;font-weight:600}
+.role a:hover{text-decoration:underline}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:600 .82rem var(--body);padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--fg)}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:.95rem;border-top:1px solid var(--line);padding-top:16px}
+.mail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mail code{font:400 .88rem var(--mono);color:var(--fg);user-select:all;word-break:break-all}
+.cv-row{display:flex;flex-wrap:wrap;gap:8px}
+.cv-msg{font-size:.86rem;color:var(--muted);flex-basis:100%}
+.li{display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--display);text-decoration:none;color:var(--ink)}
+.li img{width:22px;height:22px;border-radius:4px}
+.li .gs{width:22px;height:22px;padding:3px;border-radius:4px;background:var(--ink);fill:#ffffff}
+.li-foot{display:inline-flex;align-items:center;gap:5px;vertical-align:middle}
+.li-foot img{width:16px;height:16px;border-radius:3px}
+.li:hover{text-decoration:underline}
+.copy{font:600 .78rem var(--body);background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 7px;cursor:pointer}
+.copy:hover{border-color:var(--ink);color:var(--ink)}
+.rail-award{align-self:flex-start;display:flex;align-items:center;gap:12px;font:700 .95rem var(--display);color:var(--fg);text-decoration:none;background:var(--tint);border-radius:14px;padding:8px 14px 8px 10px}
+.rail-award:hover{color:var(--ink)}
+.rail-award img{width:38px;height:auto}
+.rail-award span small{display:block;font:500 .8rem var(--body);color:var(--muted)}
+
+/* main */
+main{min-width:0;display:flex;flex-direction:column;gap:clamp(52px,6vw,80px)}
+#grfp,.hello{margin-top:calc(-1 * clamp(24px,3vw,40px))}
+section{scroll-margin-top:84px}
+.eyebrow{font:700 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 8px}
+h2{font-size:clamp(1.85rem,3vw,2.35rem);margin-bottom:24px}
+p{margin:0;max-width:68ch}
+.stack{display:flex;flex-direction:column;gap:14px}
+.hero{display:flex;flex-direction:column;gap:0}
+
+/* news */
+.news{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-left:2px solid var(--line);margin-left:6px}
+.news li{display:grid;grid-template-columns:5.6rem minmax(0,1fr);gap:20px;padding:0 0 18px 22px;position:relative}
+.news li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.news li:first-child::before{background:var(--gold);border-color:var(--gold)}
+.news li > span{max-width:68ch}
+.news time{font:700 .84rem var(--display);color:var(--muted);padding-top:2px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* research feature */
+.feature{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:22px;
+  box-shadow:0 1px 2px rgba(10,30,50,.04),0 8px 24px -12px rgba(10,30,50,.12);transition:box-shadow .2s,transform .2s}
+.feature:hover{box-shadow:0 1px 2px rgba(10,30,50,.05),0 16px 36px -14px rgba(10,30,50,.22)}
+.feature h3{font-size:clamp(1.4rem,2.2vw,1.7rem)}
+.venue{font:italic 500 1rem var(--body);color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{background:var(--tint);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font:800 1.75rem/1.1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.stat span{font-size:.88rem;color:var(--muted);line-height:1.35;display:block;margin-top:6px}
+.feature-grid{display:grid;gap:28px;align-items:start}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{font:600 .92rem var(--display);text-decoration:none;padding:9px 16px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);background:none;cursor:pointer;transition:background .15s,color .15s}
+.btn.solid{background:var(--ink);color:var(--surface)}
+.btn:hover{text-decoration:none;background:var(--ink);color:var(--surface)}
+#research{display:flex;flex-direction:column}
+#research .feature + .feature{margin-top:26px}
+.fig{margin:0}
+.fig-btn{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in;background:#ffffff}
+.fig-btn img{display:block;width:100%}
+.fig-narrow{max-width:560px}
+.fig figcaption{font-size:.9rem;color:var(--muted);margin-top:8px}
+
+/* pubs */
+.pubs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:p}
+.pubs li{display:grid;grid-template-columns:2.4rem minmax(0,1fr);gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.pubs li::before{counter-increment:p;content:counter(p);font:800 1.2rem var(--display);color:var(--ink)}
+.pt{font-weight:700;color:var(--fg)}
+.me{font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:3px;text-underline-offset:3px}
+.pv{font-style:italic;color:var(--muted)}
+.pl{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;margin-top:8px;font:700 .82rem var(--body)}
+.badge{background:var(--tint);color:var(--ink);padding:2px 10px;border-radius:999px;font-weight:600}
+
+/* timeline entries */
+.entries{display:flex;flex-direction:column;gap:30px}
+.entry{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px}
+.when{font:700 .86rem var(--display);color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.entry h3{font-size:1.28rem}
+.where{color:var(--ink);font-weight:600;font-size:.98rem;margin-top:3px}
+.where a{text-decoration:none}
+.entry ul{margin:10px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px;max-width:68ch}
+.entry li::marker{color:var(--gold)}
+
+/* awards & skills */
+.awards{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.awards li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.awards strong{font-family:var(--display);font-weight:700}
+.awards .yr{font:700 .86rem var(--display);color:var(--muted);padding-top:3px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.awards .org{display:block;color:var(--muted);font-size:.94rem}
+.skills{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px 22px}
+.skills dt{font:700 1rem var(--display);color:var(--fg)}
+.skills dd{margin:0}
+
+.photo{margin:18px 0 0}
+.photo img{width:100%;border-radius:14px;display:block}
+.photo figcaption{font-size:.9rem;color:var(--muted);margin-top:8px;max-width:68ch}
+
+.grfp{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-radius:18px;padding:clamp(20px,3vw,30px);
+  background:linear-gradient(120deg,var(--tint),var(--surface) 70%);border:1px solid var(--line)}
+.grfp img{width:104px;height:auto;flex:none}
+.grfp > div{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.grfp h3{font-size:clamp(1.45rem,2.4vw,1.8rem)}
+.grfp .yrs{font:italic 500 1rem var(--body);color:var(--muted)}
+.awards img{width:30px;height:auto;vertical-align:middle;margin-right:10px}
+.acm{display:flex;flex-direction:column;gap:8px}
+.acm-label{font:600 .95rem var(--body);color:var(--muted)}
+.acm-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;background:#ffffff;border:1px solid var(--line);border-radius:12px;padding:12px 18px}
+.acm-row img{height:46px;width:auto;max-width:100%}
+.org-logo.round{width:110px}
+.org-logo{display:block;width:150px;max-width:100%;height:auto;margin-bottom:10px}
+.hello p{font-size:1.08rem;max-width:none;padding:18px 22px;border-radius:14px;background:var(--tint);color:var(--fg)}
+.hello a{font-weight:600}
+footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+
+/* lightbox */
+.lb[hidden]{display:none}
+.lb{position:fixed;inset:0;background:rgba(5,12,20,.88);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px 32px;z-index:10}
+.lb img{max-width:min(1400px,100%);height:auto;border-radius:8px;background:#ffffff}
+.lb button{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;font:600 .88rem var(--display);background:#fff;color:#0b1d31;border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+
+@media (max-width:900px){
+  .feature-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .entry,.skills{grid-template-columns:minmax(0,1fr);gap:4px}
+  .news li{grid-template-columns:minmax(0,1fr);gap:2px}
+  .profile{grid-template-columns:minmax(0,1fr);justify-items:start}
+  .portrait{width:132px}
+  .topbar-in{gap:14px;min-height:56px}
+  .brand{display:none}
+  .tabs{margin-left:0}
+  .tabs a{padding:17px 9px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#about" data-tab="about">Malak Gamal El-Din</a>
+    <nav class="tabs" aria-label="Pages">
+      <a href="#about" data-tab="about">About</a>
+      <a href="#news" data-tab="news">News</a>
+      <a href="#research" data-tab="research">Research</a>
+      <a href="#publications" data-tab="publications">Publications</a>
+      <a href="#experience" data-tab="experience">Experience</a>
+      <a href="#education" data-tab="education">Education</a>
+      <a href="#awards" data-tab="awards">Awards</a>
+      <a href="#service" data-tab="service">Service</a>
+      <a href="#skills" data-tab="skills">Skills</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <section class="profile" data-page="about" aria-label="Profile">
+      <div class="portrait"><img src="headshot.jpg" alt="Malak Gamal El-Din"></div>
+      <div class="profile-body">
+      <div>
+      <h1>Malak Gamal El-Din</h1>
+      <p class="role">Second-year Ph.D. student, EECS<br>University of California, Irvine<br><a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a></p>
+    </div>
+      <a class="rail-award" href="#grfp"><img src="nsf.png" alt=""><span>NSF GRFP Fellow<small>2026–2030</small></span></a>
+      <div class="tags">
+      <span class="tag">Edge AI</span><span class="tag">Hardware–Software Co-Design</span><span class="tag">Efficient Deep Learning</span><span class="tag">Model Compression</span><span class="tag">Interpretable &amp; Neurosymbolic AI</span>
+    </div>
+      <div class="contact">
+      <div class="cv-row">
+        <button class="btn solid" type="button" data-zoom="cv.jpg" data-alt="Curriculum vitae of Malak Gamal El-Din">View CV</button>
+        <a class="btn" href="Malak_Gamal_El-Din_CV.pdf" download>Download PDF</a>
+      </div>
+      <p class="cv-msg" id="cv-msg" role="status" hidden></p>
+      <div class="mail"><code id="em1">mgamalel@uci.edu</code><button class="copy" id="c1" data-t="em1" type="button">Copy</button></div>
+      <div class="mail"><code id="em2">malakgamal7@gmail.com</code><button class="copy" id="c2" data-t="em2" type="button">Copy</button></div>
+      <a class="li" href="https://www.linkedin.com/in/malak-gamal-el-din"><img src="linkedin.png" alt="">LinkedIn</a>
+      <a class="li" href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en"><svg class="gs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6.5 9.6V16c0 1.9 3 3.5 6.5 3.5s6.5-1.6 6.5-3.5v-3.4L12 16.1l-6.5-3.5z"/></svg>Google Scholar</a>
+    </div>
+      </div>
+    </section>
+
+    <section id="about" class="hero" data-page="about">
+      <h2>About</h2>
+      <div class="stack">
+        <p>I am a second-year Ph.D. student in the Department of Electrical Engineering and Computer Science at UC Irvine, advised by Prof. Salma Elmalaki in the <a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a>, and an NSF Graduate Research Fellow. My research sits between machine learning and hardware: hardware-aware neural architectures, compiler and HLS frameworks for FPGAs, and neurosymbolic methods that turn trained networks into compact, checkable rules.</p>
+        <p>My work focuses on bringing capable models to resource-constrained edge devices. I compress large models through knowledge distillation, co-design the software and hardware that run them, and build neurosymbolic models that are both efficient and interpretable. Before graduate school I worked as a DevOps engineer at CGI and worked in an Epic Games–funded AR/VR lab at Western University, at the intersection of neuroscience and computer engineering.</p>
+      </div>
+    </section>
+
+    <section id="grfp" class="grfp" data-page="about" aria-label="NSF Graduate Research Fellowship">
+      <img src="nsf.png" alt="National Science Foundation seal">
+      <div>
+        <span class="yrs">Fellowship · 2026–2030</span>
+        <h3>NSF Graduate Research Fellow</h3>
+        <p>Selected in April 2026 for the National Science Foundation Graduate Research Fellowship Program, for research that brings reasoning and learning together on resource-constrained hardware through neurosymbolic AI, knowledge distillation, and edge computing.</p>
+        <div class="pl"><a href="https://faculty.sites.uci.edu/elmalaki/2026/04/13/malak-has-won-the-nsf-graduate-research-fellowship-award-grfp/">Announcement</a><a href="https://www.nsf.gov/funding/opportunities/grfp-nsf-graduate-research-fellowship-program">About GRFP</a></div>
+      </div>
+    </section>
+
+    <section class="hello" data-page="about" aria-label="Get in touch">
+      <p>Thanks for visiting my website! Feel free to reach out at <strong style="user-select:all">mgamalel@uci.edu</strong> if you have any questions, would like to learn more about my research, or would like to collaborate.</p>
+    </section>
+
+    <section id="news" data-page="news">
+      <h2>News</h2>
+      <ul class="news">
+        <li><time>Oct 2026</time><span>Attending <strong>CODES 2026</strong> to present Bern2Edge in both an oral presentation and the poster session, as part of the <em>Efficient and Robust AI Systems and Architectures</em> session. <a href="https://arxiv.org/abs/2608.20497">Paper</a> · <a href="#research" data-zoom="poster.jpg" data-alt="Bern2Edge poster, full size">Poster</a> · <a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a></span></li>
+        <li><time>Sep 2026</time><span>Attended the <a href="https://properai.eng.uci.edu/">ProperAI</a> Symposium marking the first year of UCI's Engineering+ Society Institute on AI, and presented the Bern2Edge TCAD paper in the poster session. <a href="https://properai.eng.uci.edu/2026/07/07/save-the-date-properai-symposium/">Symposium details</a></span></li>
+        <li><time>Sep 2026</time><span>My first full journal paper, <strong>Bern2Edge</strong>, was accepted at CODES 2026 and published in IEEE TCAD, earning all three ACM artifact badges. It marks the end of my first year as a Ph.D./M.S. student at UCI. <a href="https://faculty.sites.uci.edu/elmalaki/2026/09/11/new-paper-at-codes26-ieee-tcad-congrats-malak/">Lab news</a> · <a href="https://arxiv.org/abs/2608.20497">arXiv</a> · <a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a></span></li>
+        <li><time>Apr 2026</time><span>Honored to receive the <strong>NSF Graduate Research Fellowship</strong>, which will support my research on neurosymbolic AI, knowledge distillation, and edge computing through 2030. <a href="https://faculty.sites.uci.edu/elmalaki/2026/04/13/malak-has-won-the-nsf-graduate-research-fellowship-award-grfp/">Lab news</a></span></li>
+        <li><time>Feb 2026</time><span>Preprint on the exponential approximation rates of Deep Bernstein Networks (DBNs) posted on <a href="https://arxiv.org/abs/2602.04264">arXiv</a>.</span></li>
+        <li><time>Fall 2025</time><span>Began my postgraduate studies in EECS at UC Irvine, joining the <a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a>.</span></li>
+      </ul>
+    </section>
+
+    <section id="research" data-page="research">
+      <h2>Research</h2>
+      <article class="feature">
+        <div class="stack">
+          <span class="venue">IEEE TCAD 2026 · IEEE/ACM International Conference on Codesign of Embedded Systems (CODES) 2026</span>
+          <h3>Bern2Edge: an end-to-end neurosymbolic compiler for edge deployment</h3>
+        </div>
+        <figure class="fig">
+          <button class="fig-btn" type="button" data-zoom="bern2edge-pipeline.png" data-alt="Bern2Edge framework pipeline, full size" aria-label="Enlarge the Bern2Edge framework figure"><img src="bern2edge-pipeline.png" alt="Bern2Edge framework: a pretrained teacher is distilled into a Bernstein polynomial student, which is deployed either through LUT-based activations or as extracted symbolic rules on FPGA"></button>
+          <figcaption>The Bern2Edge pipeline, from a pretrained network to an FPGA-deployed Bernstein network through two optimization paths. Click to enlarge.</figcaption>
+        </figure>
+        <div class="stack">
+          <p>Bern2Edge takes a large pretrained network and distills it into a compact Bernstein polynomial network, then deploys it on FPGAs through one of two paths. The first stores each neuron's activation as a lookup table with linear interpolation, so the cost stays fixed no matter the polynomial degree. The second extracts oblique symbolic rules from activation regimes, giving an interpretable model with a small fallback tree.</p>
+          <p>The framework covers feed-forward layers in MLPs and transformers and is synthesized on an AMD KV260 and a Xilinx Spartan-7.</p>
+        </div>
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><b>+2.12 pp</b><span>accuracy over equivalent ReLU students</span></div>
+          <div class="stat" role="listitem"><b>9×</b><span>fewer rules than ECLAIRE, a state-of-the-art rule extraction method, with higher fidelity</span></div>
+          <div class="stat" role="listitem"><b>−99.8%</b><span>latency vs. W8A8 teacher, within 0.5 pp accuracy</span></div>
+          <div class="stat" role="listitem"><b>−61.0%</b><span>latency on TinyBERT4 at matching SST-2 accuracy</span></div>
+        </div>
+        <div class="acm" aria-label="ACM artifact badges awarded">
+          <span class="acm-label">ACM artifact badges</span>
+          <div class="acm-row">
+            <img src="badge-available.png" alt="Code Available">
+            <img src="badge-reviewed.png" alt="Code Reviewed">
+            <img src="badge-reproducible.png" alt="Code Reproducible">
+          </div>
+        </div>
+        <div class="btns">
+          <a class="btn solid" href="https://arxiv.org/abs/2608.20497">Read on arXiv</a>
+          <a class="btn" href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code on GitHub</a>
+          <button class="btn" type="button" data-zoom="poster.jpg" data-alt="Bern2Edge poster, full size">View poster</button>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="stack">
+          <span class="venue">arXiv 2026 · with I. Albool, S. Elmalaki, Y. Shoukry</span>
+          <h3>Exponential approximation rates and parameter efficiency of learnable Bernstein activations</h3>
+        </div>
+        <div class="stack">
+          <p><strong>Deep Bernstein Networks (DBNs)</strong>, also called DeepBern-Nets, are neural networks that replace fixed activations such as ReLU with learnable Bernstein polynomials. Each neuron's activation is a weighted combination of Bernstein basis functions, so its shape is trained along with the weights. We prove that DBN approximation error decays as O(n<sup>−L</sup>) in polynomial degree n and depth L, exponentially faster than the polynomial rate of ReLU networks, while the networks stay differentiable.</p>
+          <p>Across 1,344 experiments on HIGGS and SUSY, DBNs match ReLU networks with far fewer parameters and train faster.</p>
+        </div>
+        <figure class="fig">
+          <button class="fig-btn" type="button" data-zoom="dbn-approx.png" data-alt="DBN vs. ReLU function approximation, full size" aria-label="Enlarge the DBN approximation figure"><img src="dbn-approx.png" alt="Fits, errors, and learned activations for a damped oscillator and a Gaussian-modulated sine. DBNs with one or two neurons track both targets; ReLU networks with four neurons miss the oscillatory structure." loading="lazy"></button>
+          <figcaption>DBN vs. ReLU on 1D function approximation: fit, pointwise error, and the learned Bernstein activations. With one or two neurons, the DBN tracks targets that a four-neuron ReLU network misses. Click to enlarge.</figcaption>
+        </figure>
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><b>O(n<sup>−L</sup>)</b><span>approximation error rate, exponential in depth</span></div>
+          <div class="stat" role="listitem"><b>&gt;70%</b><span>fewer parameters in most architectures</span></div>
+          <div class="stat" role="listitem"><b>26%</b><span>of ReLU's training epochs to match its performance</span></div>
+          <div class="stat" role="listitem"><b>−45%</b><span>final loss vs. ReLU, at best</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn solid" href="https://arxiv.org/abs/2602.04264">Read on arXiv</a>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="stack">
+          <span class="venue">IEEE EPEC 2025 · Western University</span>
+          <h3>Deep learning-driven dual-axis tilting solar panel system</h3>
+          <p>A dual-axis solar tracker that replaces light-sensor arrays with deep learning. Neural networks trained on six years of solar position data predict the sun's elevation and azimuth from the date and time. An Arduino then drives two servo motors to tilt a monocrystalline panel on 3D-printed mounts. Dropping the sensors simplifies the circuit and lowers cost and operating power.</p>
+          <p>The elevation and azimuth models were tuned with random-search hyperparameter optimization. The prototype was then tested outdoors in London, Ontario against a fixed-angle panel.</p>
+        </div>
+        <figure class="fig">
+          <button class="fig-btn" type="button" data-zoom="solar-angles-wide.png" data-alt="Actual vs. predicted elevation and azimuth angles, full size" aria-label="Enlarge the solar angle prediction figure"><img src="solar-angles-wide.png" alt="Two line plots side by side: normalized elevation angle (left) and azimuth angle (right) over two days, with predicted values nearly overlapping the actual values" loading="lazy"></button>
+          <figcaption>Actual vs. predicted elevation (left) and azimuth (right) angles after hyperparameter optimization. Click to enlarge.</figcaption>
+        </figure>
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><b>+10.45%</b><span>average voltage vs. a fixed panel over a 7.5-hour outdoor test (target 7.96%)</span></div>
+          <div class="stat" role="listitem"><b>0.00123</b><span>test MSE on normalized elevation angle</span></div>
+          <div class="stat" role="listitem"><b>0.00907</b><span>test MSE on normalized azimuth angle</span></div>
+          <div class="stat" role="listitem"><b>+51.3%</b><span>simulated summer output, dual-axis vs. fixed tilt (SAM)</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn solid" href="https://doi.org/10.1109/EPEC65543.2025.11230405">Read on IEEE Xplore</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="publications" data-page="publications">
+      <h2>Publications</h2>
+      <ol class="pubs">
+        <li><div>
+          <span class="me">M. Gamal El-Din</span>, Y. Zhang, Y. Shoukry, S. Huang, S. Elmalaki.
+          <span class="pt">“Bern2Edge: An End-to-End Neurosymbolic Compiler for Efficient Edge Deployment via Bernstein Polynomial Networks.”</span>
+          <span class="pv">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems (TCAD), 2026.</span>
+          <div class="pl"><span class="badge">IEEE/ACM International Conference on Codesign of Embedded Systems (CODES) 2026</span><span class="badge">ACM artifact badges: Available · Reviewed · Reproducible</span><a href="https://arxiv.org/abs/2608.20497">arXiv</a><a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a><a href="#research" data-zoom="poster.jpg" data-alt="Bern2Edge poster, full size">Poster</a></div>
+        </div></li>
+        <li><div>
+          I. Albool, <span class="me">M. Gamal El-Din</span>, S. Elmalaki, Y. Shoukry.
+          <span class="pt">“Exponential Approximation Rates and Parameter Efficiency of Learnable Bernstein Activations.”</span>
+          <span class="pv">arXiv preprint arXiv:2602.04264, 2026.</span>
+          <div class="pl"><a href="https://arxiv.org/abs/2602.04264">arXiv</a></div>
+        </div></li>
+        <li><div>
+          <span class="me">M. Gamal El-Din</span>, V. C. Ji, M. Tsegay, J. Lobo, K. E. S. Ghambirlou, G. Moschopoulos.
+          <span class="pt">“Deep Learning-Driven Dual-Axis Tilting Solar Panel System for Enhanced Energy Efficiency and Sustainability.”</span>
+          <span class="pv">2025 IEEE Electrical Power and Energy Conference (EPEC), pp. 110–116, 2025. DOI: 10.1109/EPEC65543.2025.11230405.</span>
+          <div class="pl"><a href="https://ieeexplore.ieee.org/abstract/document/11230405">IEEE Xplore</a></div>
+        </div></li>
+      </ol>
+    </section>
+
+    <section id="experience" data-page="experience">
+      <h2>Experience</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Fall 2025 – now</div>
+          <div>
+            <h3>Graduate Student Researcher</h3>
+            <p class="where">University of California, Irvine · Irvine, CA</p>
+            <ul>
+              <li>Research in Edge AI, hardware–software co-design, and efficient ML for resource-constrained platforms.</li>
+              <li>Hardware-aware neural architectures and compiler/HLS frameworks that cut inference latency, memory, and compute on edge devices and FPGAs.</li>
+              <li>Bernstein-based deep architectures with learnable polynomial activations that train well without residual connections.</li>
+              <li>An end-to-end neurosymbolic compiler for FPGA deployment combining knowledge distillation, quantization, HLS code generation, and symbolic rule extraction.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Sep 2022 – May 2023</div>
+          <div>
+            <h3>DevOps Software Engineer</h3>
+            <p class="where">CGI Inc. · Toronto, ON</p>
+            <ul>
+              <li>Developed and maintained CI/CD pipelines with Python, Jenkins, and Oracle Cloud Infrastructure, streamlining cloud deployment and cutting operation time by 20–30%.</li>
+              <li>Monitored and troubleshot 40+ Unix servers with Linux and shell scripting, maintaining 99.9% uptime.</li>
+              <li>Applied network and security protocol knowledge to keep network configurations aligned with application performance.</li>
+              <li>Re-engineered CSA's financial regulatory system, delivering secure transactions, faster processing, and a 30% reduction in operating costs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">May 2021 – Sep 2022</div>
+          <div>
+            <h3>Software Engineer Research Assistant</h3>
+            <p class="where">University of Western Ontario · London, ON</p>
+            <ul>
+              <li>Worked on an Epic Games–funded research project developing VR and AR for medical applications.</li>
+              <li>Built VR environments in Unreal Engine and C++, later exhibited on the Microsoft HoloLens.</li>
+              <li>Converted patient datasets into 3D models using MATLAB, data analytics, Blender, and 3D Slicer.</li>
+              <li>Developed the ReactJS frontend and Node.js/Java backend of an AR hand telerehabilitation platform.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" data-page="education">
+      <h2>Education</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Fall 2025 – now</div>
+          <div>
+            <h3>Ph.D., Computer Engineering</h3>
+            <p class="where">University of California, Irvine · GPA 4.0</p>
+            <p style="margin-top:8px">Focus: Edge AI, Neurosymbolic AI, Hardware–Software Co-Design. NSF Graduate Research Fellow.</p>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Expected Dec 2026</div>
+          <div>
+            <h3>M.S., Computer Engineering</h3>
+            <p class="where">University of California, Irvine · GPA 4.0</p>
+            <p style="margin-top:8px">Thesis: On Edge Deployment of Neural Networks and Neurosymbolic Models.</p>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Oct 2024</div>
+          <div>
+            <h3>B.E.Sc., Computer Engineering</h3>
+            <p class="where">University of Western Ontario, Canada · GPA 4.0</p>
+            <p style="margin-top:8px">Specialization in Electronic Devices for Ubiquitous Computing. Graduated with Distinction; Dean's Honor List.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards" data-page="awards">
+      <h2>Honors &amp; Awards</h2>
+      <ul class="awards">
+        <li><span><img src="nsf.png" alt=""><strong>NSF Graduate Research Fellowship (GRFP)</strong><span class="org">National Science Foundation</span></span><span class="yr">2026–2030</span></li>
+        <li><span><strong>GM Canada Scholarship of Distinction in Engineering</strong><span class="org">University of Western Ontario</span></span><span class="yr">2024</span></li>
+        <li><span><strong>Dean's Undergraduate Research Award</strong><span class="org">University of Western Ontario</span></span><span class="yr">2021–2022</span></li>
+        <li><span><strong>UWO In-Course Scholarship</strong><span class="org">University of Western Ontario</span></span><span class="yr">2022–2024</span></li>
+        <li><span><strong>Western Scholarship of Excellence</strong><span class="org">University of Western Ontario</span></span><span class="yr">2019–2020</span></li>
+        <li><span><strong>Dean's List</strong><span class="org">University of Western Ontario</span></span><span class="yr">2019–2024</span></li>
+      </ul>
+    </section>
+
+    <section id="service" data-page="service">
+      <h2>Service &amp; Involvement</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">2025 – now</div>
+          <div>
+            <img class="org-logo round" src="properai.png" alt="UC Irvine Engineering+ Society on AI logo">
+            <h3>Engineering+ Society Institute on AI (ProperAI)</h3>
+            <p class="where">Samueli School of Engineering, UC Irvine</p>
+            <p style="margin-top:8px">ProperAI is UCI's interdisciplinary institute on engineering AI so that it benefits society while managing its risks, bringing together engineering, computer science, social sciences, law and policy, and the arts. At the ProperAI Symposium on September 29, 2026, which marked the institute's first year, I presented the Bern2Edge TCAD paper in the poster session. <a href="https://properai.eng.uci.edu/">properai.eng.uci.edu</a></p>
+            <figure class="photo">
+              <img src="group.jpg" alt="Group photo of ProperAI Symposium attendees on the steps of the Susan and Henry Samueli Interdisciplinary Science and Engineering Building at UC Irvine" loading="lazy">
+              <figcaption>ProperAI Symposium attendees outside the Interdisciplinary Science and Engineering Building, UC Irvine, September 2026.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Sep 2024 – now</div>
+          <div>
+            <img class="org-logo" src="stem-heroes.png" alt="STEM Heroes Academy logo">
+            <h3>STEM Robotics and Coding Instructor &amp; Curriculum Creator</h3>
+            <p class="where"><a href="https://www.stemirvine.com/about">STEM Heroes Academy (STEM Irvine)</a> · Irvine, CA</p>
+            <p style="margin-top:8px">STEM Heroes Academy teaches science, technology, engineering, and math through a story-driven progression: students advance from STEM Cadets to STEM Heroes, building skills and confidence and learning to see themselves as problem-solvers and innovators.</p>
+            <ul>
+              <li>Teach Swift and Python app development and VEX GO / VEX IQ robotics programming, guiding students from coding basics to algorithmic problem-solving.</li>
+              <li>Design curriculum projects in which students apply what they learn to build working iOS apps.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" data-page="skills">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt><dd>Python, C, C++, Java, JavaScript, SQL, MATLAB, VHDL, Shell</dd>
+        <dt>ML &amp; hardware</dt><dd>PyTorch, TensorFlow, HLS, CUDA, neurosymbolic AI, knowledge distillation, reinforcement learning</dd>
+        <dt>Systems</dt><dd>ROS, SLURM, Conda, Kubernetes, Docker, OCI, Jenkins, CI/CD</dd>
+      </dl>
+    </section>
+
+    <footer>Malak Gamal El-Din · Irvine, California · <a class="li-foot" href="https://www.linkedin.com/in/malak-gamal-el-din"><img src="linkedin.png" alt="">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en">Google Scholar</a> · Updated October 2026</footer>
+  </main>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" id="lb-close">Close</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+(function(){
+  // copy buttons
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.t), t=el.textContent;
+      function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+      try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)},sel)}catch(e){sel()}
+    });
+  });
+  // one scrolling page; tabs jump to sections and track the one in view
+  var tabLinks=Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+  var secs=tabLinks.map(function(a){return document.getElementById(a.dataset.tab)}).filter(Boolean);
+  function mark(id){
+    tabLinks.forEach(function(a){var on=a.dataset.tab===id;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+    var on=document.querySelector('.tabs a.on'); var bar=document.querySelector('.tabs');
+    if(on&&bar){var l=on.offsetLeft-bar.offsetLeft, r=l+on.offsetWidth; if(l<bar.scrollLeft||r>bar.scrollLeft+bar.clientWidth) bar.scrollLeft=l-16;}
+  }
+  function spy(){
+    var y=window.scrollY+120, cur=secs[0]&&secs[0].id;
+    secs.forEach(function(s){ if(s.getBoundingClientRect().top+window.scrollY<=y) cur=s.id; });
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4) cur=secs[secs.length-1].id;
+    mark(cur);
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;spy()})} },{passive:true});
+  window.addEventListener('resize',spy);
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');
+    if(!a||a.hasAttribute('data-zoom')) return;
+    var id=a.getAttribute('href').slice(1), el=id&&document.getElementById(id);
+    if(!el) return;
+    e.preventDefault();
+    if(a.classList.contains('brand')){window.scrollTo({top:0,behavior:'smooth'});}
+    else el.scrollIntoView({behavior:'smooth',block:'start'});
+    try{history.replaceState(null,'','#'+id)}catch(err){}
+  });
+  (function(){var h=(location.hash||'').slice(1), el=h&&document.getElementById(h); if(el) el.scrollIntoView({block:'start'}); spy();})();
+  // CV download through the viewer's save prompt
+  (async function(){
+    var btn=document.getElementById('cv-dl'), msg=document.getElementById('cv-msg');
+    var dl=null; try{ if(window.claude&&claude.use) dl=await claude.use('downloads'); }catch(e){}
+    if(!dl) return;
+    btn.hidden=false;
+    function say(t){msg.textContent=t;msg.hidden=!t}
+    btn.addEventListener('click',async function(){
+      say('');btn.disabled=true;
+      try{
+        var r=await fetch('Malak_Gamal_El-Din_CV.pdf'); if(!r.ok) throw {code:'fetch'};
+        var blob=await r.blob();
+        await dl.save({filename:'Malak_Gamal_El-Din_CV.pdf',data:blob});
+      }catch(e){
+        var c=e&&e.code;
+        if(c==='declined'){}
+        else if(c==='rate_limited') say('A save prompt is already open.');
+        else if(c==='fetch') say('The CV file could not be loaded. Use View CV instead.');
+        else { say('Downloads are not available in this view. Use View CV instead.'); btn.hidden=true; }
+      }finally{btn.disabled=false}
+    });
+  })();
+  // poster lightbox
+  var lb=document.getElementById('lb');
+  function open(e){e.preventDefault();var t=e.currentTarget,im=document.getElementById('lb-img');im.src=t.dataset.zoom;im.alt=t.dataset.alt||'';lb.hidden=false;document.getElementById('lb-close').focus()}
+  function close(){lb.hidden=true}
+  document.querySelectorAll('[data-zoom]').forEach(function(el){el.addEventListener('click',open)});
+  document.getElementById('lb-close').addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close()});
+  addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+
+})();
+</script>
+
+</body>
+</html>
