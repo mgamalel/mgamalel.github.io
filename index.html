@@ -60,7 +60,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.25;letter-spac
 .fellow a{text-decoration:none}
 .fellow a:hover{text-decoration:underline}
 .emails{display:flex;flex-direction:column;font-size:.88rem;color:var(--muted);line-height:1.6;word-break:break-all}
-.emails span{user-select:all}
+.emails a{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none}
+.emails a:hover{color:var(--fg);text-decoration:underline}
+.emails svg{width:16px;height:16px;flex:none;fill:currentColor}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 .pill{display:inline-flex;align-items:center;gap:9px;font:400 1rem var(--display);padding:12px 22px;border-radius:999px;border:0;text-decoration:none;cursor:pointer;color:#ffffff;transition:filter .15s}
 .pill:hover{filter:brightness(1.1);text-decoration:none}
@@ -256,7 +258,7 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
       </div>
       <aside class="intro-side">
         <img class="photo-sq" src="headshot.jpg" alt="Malak Gamal El-Din">
-        <p class="emails"><span>mgamalel@uci.edu</span><span>malakgamal7@gmail.com</span></p>
+        <p class="emails"><a href="mailto:mgamalel@uci.edu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1.4 2L12 12.2 19.6 7H4.4zM20 8.4l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.4V17h16V8.4z"/></svg>mgamalel@uci.edu</a><a href="mailto:malakgamal7@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1.4 2L12 12.2 19.6 7H4.4zM20 8.4l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.4V17h16V8.4z"/></svg>malakgamal7@gmail.com</a></p>
       </aside>
     </section>
 
