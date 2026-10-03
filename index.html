@@ -13,73 +13,95 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: sticky top tab bar over one scrolling page; the bar tracks the section in view; profile header first (single light theme).
+/* Layout: classic academic page. Serif type, name + italic tagline + underlined text nav; bio left with square photo right; sections scroll below.
    Palette: UCI blue and gold on a cool, slightly blue-biased neutral. */
 :root{
-  --bg:#f4f6f9; --surface:#ffffff; --fg:#122033; --muted:#566476; --line:#dfe4eb;
-  --ink:#0064a4; --gold:#f2b705; --gold-soft:#fff4cf; --tint:#e9f2fa;
+  --bg:#ffffff; --surface:#ffffff; --fg:#2b2b2b; --muted:#666a70; --line:#e6e6e6;
+  --ink:#0064a4; --gold:#f2b705; --gold-soft:#fff4cf; --tint:#f4f6f8;
   --rail-bg:#ffffff; --rail-fg:#122033; --rail-muted:#566476; --rail-line:#dfe4eb; --rail-accent:#f2b705; --rail-link:#0064a4;
   color-scheme:light;
-  --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
-  --body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --display:"Libre Baskerville",Baskerville,Georgia,"Times New Roman",serif;
+  --body:"Libre Baskerville",Baskerville,Georgia,"Times New Roman",serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font:400 1.06rem/1.65 var(--body);margin:0;-webkit-font-smoothing:antialiased}
-a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}
+body{background:var(--bg);color:var(--fg);font:400 1rem/1.85 var(--body);margin:0;-webkit-font-smoothing:antialiased}
+a{color:var(--fg);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 a:hover{text-decoration-thickness:2px}
 a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.15;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.25;letter-spacing:-.01em;text-wrap:balance;margin:0}
 .page{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,4vw,48px) 40px}
 
-/* top tab bar */
-.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.topbar-in{max-width:1160px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);display:flex;align-items:center;gap:28px;min-height:64px}
-.brand{font:800 1.12rem var(--display);letter-spacing:-.02em;color:var(--fg);text-decoration:none;white-space:nowrap}
-.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;min-width:0}
+/* header: name, tagline, underlined text nav */
+.topbar{background:#ffffff;padding-top:env(safe-area-inset-top,0px)}
+.totop{position:fixed;right:clamp(14px,3vw,28px);bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:6;font:400 .9rem var(--display);color:var(--fg);background:#ffffff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;box-shadow:0 4px 14px -6px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.show{opacity:1;pointer-events:auto}
+.topbar-in{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);display:flex;align-items:baseline;gap:18px;padding-block:22px 18px;flex-wrap:wrap}
+.brand{font:700 1.8rem/1.1 var(--display);letter-spacing:-.01em;color:var(--fg);text-decoration:none;white-space:nowrap}
+.tagline{font:italic 400 1rem var(--display);color:var(--fg)}
+.tabs{display:flex;gap:4px 22px;margin-left:auto;overflow-x:auto;scrollbar-width:none;min-width:0;padding-bottom:4px}
 .tabs::-webkit-scrollbar{display:none}
-.tabs a{position:relative;white-space:nowrap;padding:21px 10px;font:600 .94rem var(--display);color:var(--muted);text-decoration:none;transition:color .15s}
-.tabs a:hover{color:var(--fg)}
-.tabs a.on{color:var(--ink)}
-.tabs a.on::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--gold)}
+.tabs a{white-space:nowrap;font:400 1rem var(--display);color:var(--fg);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-color:transparent;transition:text-decoration-color .15s}
+.tabs a:hover{text-decoration-color:var(--muted)}
+.tabs a.on{text-decoration-color:var(--fg);text-decoration-thickness:2px}
 
-/* profile header (About page) */
-.profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:clamp(22px,4vw,44px);align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3.5vw,36px);box-shadow:0 8px 24px -14px rgba(10,30,50,.14)}
-.profile-body{display:flex;flex-direction:column;gap:16px;min-width:0}
-.portrait{width:180px;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;border:1px solid var(--line)}
+/* intro: bio left, square photo right */
+.intro{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start;padding-top:clamp(8px,2vw,24px)}
+.intro-text{display:flex;flex-direction:column;gap:20px;min-width:0}
+.intro-text p{font-size:1.08rem;line-height:1.85;max-width:none}
+.intro-side{order:-1;display:flex;flex-direction:column;align-items:flex-start;gap:14px;text-align:left}
+.photo-sq{width:240px;aspect-ratio:1;object-fit:cover;display:block}
+.fellow{display:flex;align-items:center;gap:8px;font-size:.95rem}
+.fellow img{width:22px;height:auto}
+.fellow a{text-decoration:none}
+.fellow a:hover{text-decoration:underline}
+.emails{display:flex;flex-direction:column;font-size:.88rem;color:var(--muted);line-height:1.6;word-break:break-all}
+.emails span{user-select:all}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.pill{display:inline-flex;align-items:center;gap:9px;font:400 1rem var(--display);padding:12px 22px;border-radius:999px;border:0;text-decoration:none;cursor:pointer;color:#ffffff;transition:filter .15s}
+.pill:hover{filter:brightness(1.1);text-decoration:none}
+.pill img,.pill .gs{width:20px;height:20px;border-radius:3px}
+.pill-li{background:#2e70b3}
+.pill-gs{background:#4a5a6e}
+.pill-gs .gs{fill:#ffffff;padding:0}
+.pill-cv{background:#2b2b2b}
+.pill-ghost{background:none;color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+.cv-msg{font-size:.86rem;color:var(--muted)}
+
+/* profile header: minimal, no card */
+.profile{display:grid;grid-template-columns:148px minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center;padding-block:clamp(8px,2vw,20px) clamp(28px,4vw,40px);border-bottom:1px solid var(--line)}
+.profile-body{display:flex;flex-direction:column;gap:10px;min-width:0}
+.portrait{width:148px;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;border:1px solid var(--line)}
 .portrait img{width:100%;height:100%;object-fit:cover;display:block}
-.profile h1{font-size:clamp(2rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
-.role{color:var(--muted);font-size:1.02rem;line-height:1.5;margin:10px 0 0}
-.role a{color:var(--ink);text-decoration:none;font-weight:600}
-.role a:hover{text-decoration:underline}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font:600 .82rem var(--body);padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--fg)}
-.contact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:.95rem;border-top:1px solid var(--line);padding-top:16px}
-.mail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.mail code{font:400 .88rem var(--mono);color:var(--fg);user-select:all;word-break:break-all}
-.cv-row{display:flex;flex-wrap:wrap;gap:8px}
-.cv-msg{font-size:.86rem;color:var(--muted);flex-basis:100%}
-.li{display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--display);text-decoration:none;color:var(--ink)}
-.li img{width:22px;height:22px;border-radius:4px}
-.li .gs{width:22px;height:22px;padding:3px;border-radius:4px;background:var(--ink);fill:#ffffff}
-.li-foot{display:inline-flex;align-items:center;gap:5px;vertical-align:middle}
-.li-foot img{width:16px;height:16px;border-radius:3px}
-.li:hover{text-decoration:underline}
-.copy{font:600 .78rem var(--body);background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 7px;cursor:pointer}
-.copy:hover{border-color:var(--ink);color:var(--ink)}
-.rail-award{align-self:flex-start;display:flex;align-items:center;gap:12px;font:700 .95rem var(--display);color:var(--fg);text-decoration:none;background:var(--tint);border-radius:14px;padding:8px 14px 8px 10px}
-.rail-award:hover{color:var(--ink)}
-.rail-award img{width:38px;height:auto}
-.rail-award span small{display:block;font:500 .8rem var(--body);color:var(--muted)}
+.profile h1{font-size:clamp(2rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.role{color:var(--muted);font-size:1rem;line-height:1.55}
+.role a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line)}
+.role a:hover{border-color:var(--fg)}
+.fellow{display:flex;align-items:center;gap:8px;font-size:.98rem}
+.fellow img{width:20px;height:auto}
+.fellow a{color:var(--fg);text-decoration:none;font-weight:600}
+.fellow a:hover{text-decoration:underline}
+.interests{color:var(--muted);font-size:.95rem;line-height:1.55}
+.plinks{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;margin-top:6px}
+.plinks a,.plinks button{display:inline-flex;align-items:center;gap:7px;font:600 .95rem var(--display);color:var(--fg);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.plinks a:hover,.plinks button:hover{color:var(--ink)}
+.plinks img,.plinks .gs{width:17px;height:17px;border-radius:3px}
+.plinks .gs{padding:2px;background:var(--fg);fill:#ffffff}
+.plinks button[data-zoom]::before,#cv-dl::before{content:"";width:17px;height:17px;border-radius:3px;background:var(--fg) center/11px no-repeat}
+.plinks button[data-zoom]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M6 2h9l5 5v15H6V2zm8 1.5V8h4.5L14 3.5zM8 12h10v1.6H8V12zm0 3.4h10V17H8v-1.6zm0 3.4h7v1.6H8v-1.6z'/%3E%3C/svg%3E")}
+#cv-dl::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M11 3h2v9.2l3.3-3.3 1.4 1.4L12 16 6.3 10.3l1.4-1.4 3.3 3.3V3zM5 19h14v2H5v-2z'/%3E%3C/svg%3E")}
+.cv-msg{font-size:.86rem;color:var(--muted)}
+.emails{display:flex;flex-wrap:wrap;gap:4px 18px;font:400 .9rem var(--mono);color:var(--muted)}
+.emails span{user-select:all}
 
 /* main */
 main{min-width:0;display:flex;flex-direction:column;gap:clamp(52px,6vw,80px)}
 #grfp,.hello{margin-top:calc(-1 * clamp(24px,3vw,40px))}
-section{scroll-margin-top:84px}
+section{scroll-margin-top:24px}
 .eyebrow{font:700 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 8px}
 h2{font-size:clamp(1.85rem,3vw,2.35rem);margin-bottom:24px}
 p{margin:0;max-width:68ch}
@@ -181,11 +203,16 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .entry,.skills{grid-template-columns:minmax(0,1fr);gap:4px}
   .news li{grid-template-columns:minmax(0,1fr);gap:2px}
-  .profile{grid-template-columns:minmax(0,1fr);justify-items:start}
-  .portrait{width:132px}
+  .profile{grid-template-columns:minmax(0,1fr);justify-items:start;align-items:start}
+  .portrait{width:112px}
   .topbar-in{gap:14px;min-height:56px}
-  .brand{display:none}
-  .tabs{margin-left:0}
+  .brand{font-size:1.45rem}
+  .tagline{flex-basis:100%;font-size:.92rem}
+  .intro{grid-template-columns:minmax(0,1fr)}
+  .intro-side{order:-1;align-items:flex-start;text-align:left}
+  .photo-sq{width:150px}
+  .emails{flex-direction:row;flex-wrap:wrap;gap:0 16px}
+  .tabs{margin-left:0;flex-basis:100%}
   .tabs a{padding:17px 9px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
@@ -210,40 +237,27 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
     </nav>
   </div>
 </header>
+<button class="totop" id="totop" type="button" aria-label="Back to top">↑ Top</button>
 
 <div class="page">
   <main>
-    <section class="profile" data-page="about" aria-label="Profile">
-      <div class="portrait"><img src="headshot.jpg" alt="Malak Gamal El-Din"></div>
-      <div class="profile-body">
-      <div>
-      <h1>Malak Gamal El-Din</h1>
-      <p class="role">Second-year Ph.D. student, EECS<br>University of California, Irvine<br><a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a></p>
-    </div>
-      <a class="rail-award" href="#grfp"><img src="nsf.png" alt=""><span>NSF GRFP Fellow<small>2026–2030</small></span></a>
-      <div class="tags">
-      <span class="tag">Edge AI</span><span class="tag">Hardware–Software Co-Design</span><span class="tag">Efficient Deep Learning</span><span class="tag">Model Compression</span><span class="tag">Interpretable &amp; Neurosymbolic AI</span>
-    </div>
-      <div class="contact">
-      <div class="cv-row">
-        <button class="btn solid" type="button" data-zoom="cv.jpg" data-alt="Curriculum vitae of Malak Gamal El-Din">View CV</button>
-        <a class="btn" href="Malak_Gamal_El-Din_CV.pdf" download>Download PDF</a>
-      </div>
-      <p class="cv-msg" id="cv-msg" role="status" hidden></p>
-      <div class="mail"><code id="em1">mgamalel@uci.edu</code><button class="copy" id="c1" data-t="em1" type="button">Copy</button></div>
-      <div class="mail"><code id="em2">malakgamal7@gmail.com</code><button class="copy" id="c2" data-t="em2" type="button">Copy</button></div>
-      <a class="li" href="https://www.linkedin.com/in/malak-gamal-el-din"><img src="linkedin.png" alt="">LinkedIn</a>
-      <a class="li" href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en"><svg class="gs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6.5 9.6V16c0 1.9 3 3.5 6.5 3.5s6.5-1.6 6.5-3.5v-3.4L12 16.1l-6.5-3.5z"/></svg>Google Scholar</a>
-    </div>
-      </div>
-    </section>
 
-    <section id="about" class="hero" data-page="about">
-      <h2>About</h2>
-      <div class="stack">
-        <p>I am a second-year Ph.D. student in the Department of Electrical Engineering and Computer Science at UC Irvine, advised by Prof. Salma Elmalaki in the <a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a>, and an NSF Graduate Research Fellow. My research sits between machine learning and hardware: hardware-aware neural architectures, compiler and HLS frameworks for FPGAs, and neurosymbolic methods that turn trained networks into compact, checkable rules.</p>
-        <p>My work focuses on bringing capable models to resource-constrained edge devices. I compress large models through knowledge distillation, co-design the software and hardware that run them, and build neurosymbolic models that are both efficient and interpretable. Before graduate school I worked as a DevOps engineer at CGI and worked in an Epic Games–funded AR/VR lab at Western University, at the intersection of neuroscience and computer engineering.</p>
+    <section id="about" class="intro" data-page="about">
+      <div class="intro-text">
+        <p>I am a second-year Ph.D. student in Electrical Engineering and Computer Science at UC Irvine, advised by Prof. Salma Elmalaki in the <a href="https://faculty.sites.uci.edu/elmalaki/">Pervasive Autonomy Lab</a>, and an NSF Graduate Research Fellow. My research focuses on making machine learning efficient, reliable, and interpretable on resource-constrained edge devices. I work across model compression, hardware–software co-design, and neurosymbolic AI to build AI systems that are practical to deploy in the real world.</p>
+        <p>Thanks for visiting my website, and feel free to contact me if you have any questions, would like to learn more about my research, or would like to collaborate!</p>
+        <div class="pills">
+          <a class="pill pill-li" href="https://www.linkedin.com/in/malak-gamal-el-din"><img src="linkedin.png" alt="">LinkedIn</a>
+          <a class="pill pill-gs" href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en"><svg class="gs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6.5 9.6V16c0 1.9 3 3.5 6.5 3.5s6.5-1.6 6.5-3.5v-3.4L12 16.1l-6.5-3.5z"/></svg>Google Scholar</a>
+          <button class="pill pill-cv" type="button" data-zoom="cv.jpg" data-alt="Curriculum vitae of Malak Gamal El-Din">CV</button>
+          <a class="pill pill-ghost" id="cv-dl" href="Malak_Gamal_El-Din_CV.pdf" download>Download CV</a>
+        </div>
+        <p class="cv-msg" id="cv-msg" role="status" hidden></p>
       </div>
+      <aside class="intro-side">
+        <img class="photo-sq" src="headshot.jpg" alt="Malak Gamal El-Din">
+        <p class="emails"><span>mgamalel@uci.edu</span><span>malakgamal7@gmail.com</span></p>
+      </aside>
     </section>
 
     <section id="grfp" class="grfp" data-page="about" aria-label="NSF Graduate Research Fellowship">
@@ -256,14 +270,11 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
       </div>
     </section>
 
-    <section class="hello" data-page="about" aria-label="Get in touch">
-      <p>Thanks for visiting my website! Feel free to reach out at <strong style="user-select:all">mgamalel@uci.edu</strong> if you have any questions, would like to learn more about my research, or would like to collaborate.</p>
-    </section>
 
     <section id="news" data-page="news">
       <h2>News</h2>
       <ul class="news">
-        <li><time>Oct 2026</time><span>Attending <strong>CODES 2026</strong> to present Bern2Edge in both an oral presentation and the poster session, as part of the <em>Efficient and Robust AI Systems and Architectures</em> session. <a href="https://arxiv.org/abs/2608.20497">Paper</a> · <a href="#research" data-zoom="poster.jpg" data-alt="Bern2Edge poster, full size">Poster</a> · <a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a></span></li>
+        <li><time>Oct 2026</time><span>Attending <strong>CODES 2026</strong> in Barcelona, Spain, to present Bern2Edge in both an oral presentation and the poster session, as part of the <em>Efficient and Robust AI Systems and Architectures</em> session. <a href="https://arxiv.org/abs/2608.20497">Paper</a> · <a href="#research" data-zoom="poster.jpg" data-alt="Bern2Edge poster, full size">Poster</a> · <a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a></span></li>
         <li><time>Sep 2026</time><span>Attended the <a href="https://properai.eng.uci.edu/">ProperAI</a> Symposium marking the first year of UCI's Engineering+ Society Institute on AI, and presented the Bern2Edge TCAD paper in the poster session. <a href="https://properai.eng.uci.edu/2026/07/07/save-the-date-properai-symposium/">Symposium details</a></span></li>
         <li><time>Sep 2026</time><span>My first full journal paper, <strong>Bern2Edge</strong>, was accepted at CODES 2026 and published in IEEE TCAD, earning all three ACM artifact badges. It marks the end of my first year as a Ph.D./M.S. student at UCI. <a href="https://faculty.sites.uci.edu/elmalaki/2026/09/11/new-paper-at-codes26-ieee-tcad-congrats-malak/">Lab news</a> · <a href="https://arxiv.org/abs/2608.20497">arXiv</a> · <a href="https://github.com/PervasiveAutonomyLab/Bern2Edge">Code</a></span></li>
         <li><time>Apr 2026</time><span>Honored to receive the <strong>NSF Graduate Research Fellowship</strong>, which will support my research on neurosymbolic AI, knowledge distillation, and edge computing through 2030. <a href="https://faculty.sites.uci.edu/elmalaki/2026/04/13/malak-has-won-the-nsf-graduate-research-fellowship-award-grfp/">Lab news</a></span></li>
@@ -507,7 +518,7 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
       </dl>
     </section>
 
-    <footer>Malak Gamal El-Din · Irvine, California · <a class="li-foot" href="https://www.linkedin.com/in/malak-gamal-el-din"><img src="linkedin.png" alt="">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en">Google Scholar</a> · Updated October 2026</footer>
+    <footer>Malak Gamal El-Din · Irvine, California · <a href="https://www.linkedin.com/in/malak-gamal-el-din">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=vk2KulUAAAAJ&amp;hl=en">Google Scholar</a> · Updated October 2026</footer>
   </main>
 </div>
 
@@ -540,8 +551,9 @@ footer{font:500 .86rem var(--body);color:var(--muted);border-top:1px solid var(-
     if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4) cur=secs[secs.length-1].id;
     mark(cur);
   }
+  document.getElementById("totop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
   var ticking=false;
-  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;spy()})} },{passive:true});
+  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;spy();var tt=document.getElementById('totop');if(tt)tt.classList.toggle('show',window.scrollY>600)})} },{passive:true});
   window.addEventListener('resize',spy);
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href^="#"]');
